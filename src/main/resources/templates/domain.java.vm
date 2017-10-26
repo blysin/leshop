@@ -1,0 +1,89 @@
+package ${package.Entity};
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+#foreach($pkg in ${table.importPackages})
+#if(${pkg.startsWith("com.baomidou.mybatisplus")})
+#else
+import ${pkg};
+#end
+#end
+
+
+/**
+ * <p>
+ * ${table.comment}
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+#if(${superEntityClass})
+public class ${entity} extends ${superEntityClass}#if(${activeRecord})<${entity}>#end {
+#elseif(${activeRecord})
+public class ${entity} extends Model<${entity}> {
+#else
+public class ${entity} {
+#end
+
+
+#foreach($field in ${table.fields})
+#if(${field.keyFlag})
+#set($keyPropertyName=${field.propertyName})
+#end
+#if("$!field.comment" != "")
+
+    //${field.comment}
+#end
+#if(${field.keyFlag})
+#if(${field.keyIdentityFlag})
+#elseif(${field.convert})
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+#end
+#elseif(${field.convert})
+#end
+    private ${field.propertyType} ${field.propertyName};
+#end
+
+#foreach($field in ${table.fields})
+#if(${field.propertyType.equals("Boolean")})
+#set($getprefix="is")
+#else
+#set($getprefix="get")
+#end
+
+    public ${field.propertyType} ${getprefix}${field.capitalName}() {
+        return ${field.propertyName};
+    }
+
+#if(${entityBuilderModel})
+    public ${entity} set${field.capitalName}(${field.propertyType} ${field.propertyName}) {
+#else
+    public void set${field.capitalName}(${field.propertyType} ${field.propertyName}) {
+#end
+        this.${field.propertyName} = ${field.propertyName};
+#if(${entityBuilderModel})
+        return this;
+#end
+    }
+#end
+
+#if(${entityColumnConstant})
+#foreach($field in ${table.fields})
+	public static final String ${field.name.toUpperCase()} = "${field.name}";
+
+#end
+#end
+}
