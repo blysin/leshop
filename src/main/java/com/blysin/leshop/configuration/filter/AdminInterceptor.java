@@ -18,10 +18,5 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         super.postHandle(request, response, handler, modelAndView);
-        Subject user = SecurityUtils.getSubject();
-        if(user.isAuthenticated()){
-            modelAndView.addObject("adminUserName",((Admin)user.getPrincipal()).getRealName());
-
-        }
     }
 }

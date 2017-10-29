@@ -69,7 +69,7 @@
         <div class="checkbox">
             &nbsp;
             <label>
-                <input type="checkbox" value="remember-me"> 记住账号
+                <input id="remember-me" type="checkbox"> 记住账号
             </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="button" onclick="subForm()">登录</button>
@@ -103,8 +103,9 @@
         var params = {
             loginName:loginName,
             password:inputPassword,
-            code:randomCode
-        }
+            code:randomCode,
+            remmemberMe:$("#remember-me").is(':checked')
+        };
         $.ajax({
             url:'/admin/sa/api/login',
             type:'POST',

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blysin.leshop.admin.dao.RoleDao">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        Role_Id AS RoleId, Role_Name AS RoleName, Role_desc AS RoleDesc, Create_Time AS CreateTime, Last_Update_Time AS LastUpdateTime, Status_Cd AS StatusCd
+    </sql>
+
+    <select id="findRolesByUserName" resultType="java.lang.String">
+        SELECT r.`Role_Name`
+        FROM role r
+        RIGHT JOIN admin_role_xref X ON x.`Role_Id` = r.`Role_Id`
+        RIGHT JOIN admin a ON x.`Admin_Id` = a.`admin_id`
+        WHERE a.`user_name` = #{userName}
+    </select>
+
+</mapper>

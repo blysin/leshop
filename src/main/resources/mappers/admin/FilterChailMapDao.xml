@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blysin.leshop.admin.dao.FilterChailMapDao">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, request_uri AS requestUri, filter_name AS filterName, compositor, create_time AS createTime
+    </sql>
+    <select id="findMapping" resultType="com.blysin.leshop.admin.domain.FilterChailMap">
+        SELECT id,request_uri,filter_name FROM filter_chail_map WHERE status_cd = 1 ORDER BY compositor
+    </select>
+
+
+</mapper>

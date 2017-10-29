@@ -1,5 +1,7 @@
 package com.blysin.leshop.configuration.shiro;
 
+import com.blysin.leshop.admin.domain.FilterChailMap;
+import com.blysin.leshop.admin.service.FilterChailMapService;
 import com.blysin.leshop.shiro.realm.SpringRealm;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -10,14 +12,20 @@ import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.mgt.DefaultFilter;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.Cookie;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 /**
@@ -25,8 +33,11 @@ import java.util.Map;
  * @since 2017/10/29
  */
 @Configuration
+@EnableCaching
 public class ShiroConfig {
     private Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
+    @Autowired
+    private FilterChailMapService filterChailMapService;
 
     /**
      * 配置shiro拦截器工厂类
@@ -52,7 +63,7 @@ public class ShiroConfig {
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
 
         /*
-        * 拦截器配置：
+        * 拦截器配置：DefaultFilter枚举
         * anno：不需要登录校验
         * authc：需要登录校验
         * logout：自动退出登录并返回到登录页面
@@ -63,24 +74,30 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/common/**", "anon");
         filterChainDefinitionMap.put("/admin/sa/api/login", "anon");
+        filterChainDefinitionMap.put("/admin/sa/test", "anon");
 
         // 配置退出过滤器,其中的具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionMap.put("/logout", "logout");
 
         //角色拦截器
         filterChainDefinitionMap.put("/admin/sa/product","roles[admin,product]");
-        filterChainDefinitionMap.put("/admin/sa/user","roles[admin,user]");
+        filterChainDefinitionMap.put("/admin/sa/user","roles[user,admin]");
         filterChainDefinitionMap.put("/admin/sa/setting","roles[admin]");
 
         //权限拦截器
        filterChainDefinitionMap.put("/add", "perms[权限添加]");
 
-
-
         // 过滤链定义，从上向下顺序执行，一般将 /**放在最为下边
         filterChainDefinitionMap.put("/**", "authc");
 
+        //使用数据库读取配置
+//        LinkedList<FilterChailMap> result = filterChailMapService.findMapping();
+//        for(FilterChailMap temp:result){
+//            filterChainDefinitionMap.put(temp.getRequestUri(),temp.getFilterName());
+//        }
+
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+
         logger.debug("Shiro拦截器工厂类注入成功");
         return shiroFilterFactoryBean;
     }
@@ -107,9 +124,17 @@ public class ShiroConfig {
      */
     @Bean
     public org.apache.shiro.mgt.SecurityManager securityManager() {
-        DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager(getRealm());
+        DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager(realm());
+
+        //配置remmenberme的属性
+        CookieRememberMeManager cookieRememberMeManager =  new CookieRememberMeManager();
+        Cookie cookie = new SimpleCookie("shiro_rememberMe");
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(10000);
+        cookieRememberMeManager.setCookie(cookie);
+        defaultWebSecurityManager.setRememberMeManager(cookieRememberMeManager);
+
         defaultWebSecurityManager.setCacheManager(ehCacheManager());
-//        defaultWebSecurityManager.setAuthenticator();
         return defaultWebSecurityManager;
     }
 
@@ -122,7 +147,7 @@ public class ShiroConfig {
     @Bean
     public EhCacheManager ehCacheManager() {
         EhCacheManager cacheManager = new EhCacheManager();
-        cacheManager.setCacheManagerConfigFile("classpath:config/ehcache-shiro.xml");
+        cacheManager.setCacheManagerConfigFile("classpath:ehcache-shiro.xml");
         return cacheManager;
     }
 
@@ -132,7 +157,7 @@ public class ShiroConfig {
      * @return
      */
     @Bean
-    public SpringRealm getRealm() {
+    public SpringRealm realm() {
         SpringRealm realm = new SpringRealm();
         HashedCredentialsMatcher credentialsMatcher =  new HashedCredentialsMatcher("SHA-1");
         credentialsMatcher.setHashIterations(1024);

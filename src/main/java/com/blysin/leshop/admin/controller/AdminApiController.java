@@ -26,7 +26,7 @@ import java.util.Date;
 @RequestMapping("/admin/sa/api")
 public class AdminApiController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public Object Login(HttpServletRequest request, HttpServletResponse response, HttpSession session, @RequestParam String loginName, @RequestParam String password, @RequestParam String code) {
+    public Object Login(HttpServletRequest request, HttpServletResponse response, HttpSession session, @RequestParam String loginName, @RequestParam String password, @RequestParam String code,boolean remmemberMe) {
         if (!code.equals(session.getAttribute(CommonConstants.SESSION_KEY_VERIFY_CODE))) {
 //            return RestResult.newConflictError(response, "验证码错误");
         }
@@ -34,7 +34,7 @@ public class AdminApiController {
         Subject user = SecurityUtils.getSubject();
         if(!user.isAuthenticated()){
             UsernamePasswordToken token = new UsernamePasswordToken(loginName,password);
-            token.setRememberMe(true);
+            token.setRememberMe(remmemberMe);
 
             try {
                 user.login(token);

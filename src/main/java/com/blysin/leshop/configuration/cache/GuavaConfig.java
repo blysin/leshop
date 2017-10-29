@@ -13,11 +13,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 与EhCacheh会有冲突，尚未解决解决
  * @author Blysin
  * @since 2017/8/24
  */
-@Configuration
-public class GuavaConfiguration {
+//@Configuration
+public class GuavaConfig {
 
     @Bean
     public CacheManager getCompositeCacheManager() {

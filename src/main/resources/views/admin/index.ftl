@@ -34,13 +34,20 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/admin/sa/index">首页</a></li>
-                <li><a href="/admin/sa/user">会员管理</a></li>
-                <li><a href="/admin/sa/product">商品管理</a></li>
+                <@shiro.hasRole name="user">
+                    <li><a href="/admin/sa/user">会员管理</a></li>
+                </@shiro.hasRole>
+                <@shiro.hasRole name="product">
+                    <li><a href="/admin/sa/product">商品管理</a></li>
+                </@shiro.hasRole>
                 <li><a href="/admin/sa/setting">系统设置</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-               <li><a href="#" style="color:white">${adminUserName?default('管理员')}</a></li>
+            <@shiro.authenticated>
+                <li><a href="#" style="color:white"><@shiro.principal property="realName"/></a></li>
                 <li><a href="/logout">退出</a></li>
+            </@shiro.authenticated>
+
             </ul>
 
             <#--<form class="navbar-form navbar-right">-->

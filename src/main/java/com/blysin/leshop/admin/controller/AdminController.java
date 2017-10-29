@@ -1,5 +1,6 @@
 package com.blysin.leshop.admin.controller;
 
+import org.apache.shiro.authz.annotation.RequiresGuest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
 
     @RequestMapping("/test")
+    @RequiresGuest
     public void test(String param){
         System.out.println("hello world "+param);
     }
