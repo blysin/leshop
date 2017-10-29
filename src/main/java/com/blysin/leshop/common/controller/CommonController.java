@@ -21,6 +21,7 @@ import java.util.Random;
  * @since 2017/10/19
  */
 @Controller
+@RequestMapping("/common")
 public class CommonController {
     private Logger logger = LoggerFactory.getLogger(CommonController.class);
 

@@ -16,14 +16,33 @@ public class AdminController {
         System.out.println("hello world "+param);
     }
 
+    @RequestMapping("/unauth")
+    public String toUnauth(String successUrl){
+        return "/login/unauth";
+    }
+
     @RequestMapping("/login")
     public String toLogin(String successUrl){
-        return "/admin/login";
+        return "/login/login";
     }
 
     @RequestMapping("/index")
     public String toIndex(){
         return "/admin/index";
+    }
+
+    @RequestMapping("/user")
+    public String toUser(){
+        return "/user/user";
+    }
+    @RequestMapping("/product")
+    public String toProduct(){
+        return "/product/product";
+    }
+
+    @RequestMapping("/setting")
+    public String toSetting() {
+        return "/setting/setting";
     }
 
 

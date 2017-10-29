@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>乐商城</title>
+    <title>设置模块</title>
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/admin.css">
     <script src="/static/js/jquery.min.js"></script>
@@ -33,14 +33,14 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Settings</a></li>
-                <li><a href="#">Profile</a></li>
-                <li><a href="#">Help</a></li>
+                <li><a href="/admin/sa/index">首页</a></li>
+                <li><a href="/admin/sa/user">会员管理</a></li>
+                <li><a href="/admin/sa/product">商品管理</a></li>
+                <li class="active"><a href="/admin/sa/setting">系统设置</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                <li><a href="#" style="color:white">${adminUserName?default('管理员')}</a></li>
-                <li><a href="#">退出</a></li>
+                <li><a href="/logout">退出</a></li>
             </ul>
 
             <#--<form class="navbar-form navbar-right">-->

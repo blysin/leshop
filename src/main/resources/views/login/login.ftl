@@ -82,7 +82,7 @@
     })
 
     function changeCode() {
-        $('#code').attr('src','/randomCaptcha?'+new Date().getTime());
+        $('#code').attr('src','/common/randomCaptcha?'+new Date().getTime());
     }
     function subForm() {
         var loginName = $('#loginName').val();
@@ -98,11 +98,11 @@
         var randomCode = $('#randomCode').val();
         if(!randomCode ||randomCode.trim().length!==5){
             layer.msg('验证码错误');
-            return false;
+//            return false;
         }
         var params = {
             loginName:loginName,
-            password:CryptoJS.SHA1(inputPassword).toString(),
+            password:inputPassword,
             code:randomCode
         }
         $.ajax({
@@ -115,6 +115,8 @@
                 if(data === 'success'){
                     layer.msg('登录成功');
                     location.href = '/admin/sa/index';
+                }else{
+                    changeCode();
                 }
             },
             error:function(e){

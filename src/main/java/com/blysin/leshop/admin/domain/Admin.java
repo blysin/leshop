@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Date;
 
 
@@ -19,7 +20,9 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Admin {
+public class Admin implements Serializable {
+    private static final long serialVersionUID = 7247714666080613254L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer adminId;

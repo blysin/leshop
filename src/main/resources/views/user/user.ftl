@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>乐商城</title>
+    <title>用户模块</title>
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/admin.css">
     <script src="/static/js/jquery.min.js"></script>
@@ -33,8 +33,8 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/admin/sa/index">首页</a></li>
-                <li><a href="/admin/sa/user">会员管理</a></li>
+                <li><a href="/admin/sa/index">首页</a></li>
+                <li class="active"><a href="/admin/sa/user">会员管理</a></li>
                 <li><a href="/admin/sa/product">商品管理</a></li>
                 <li><a href="/admin/sa/setting">系统设置</a></li>
             </ul>
