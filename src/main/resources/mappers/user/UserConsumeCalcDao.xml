@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blysin.leshop.user.dao.UserConsumeCalcDao">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        User_Id AS UserId, Consume_Cnt AS ConsumeCnt, Current_Year_Consume_Cnt AS CurrentYearConsumeCnt, Total_Consume_Amt AS TotalConsumeAmt, Current_Year_Total_Consume_Amt AS CurrentYearTotalConsumeAmt, Develop_User_Cnt AS DevelopUserCnt, User_Balance AS UserBalance, Last_Update_Time AS LastUpdateTime
+    </sql>
+
+</mapper>

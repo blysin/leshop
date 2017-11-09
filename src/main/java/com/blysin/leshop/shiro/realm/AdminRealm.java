@@ -21,7 +21,7 @@ import java.util.Set;
  * @author Blysin
  * @since 2017/10/29
  */
-public class SpringRealm extends AuthorizingRealm {
+public class AdminRealm extends AuthorizingRealm {
     @Autowired
     private AdminService adminService;
     @Autowired

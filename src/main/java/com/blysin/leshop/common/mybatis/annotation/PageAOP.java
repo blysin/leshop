@@ -25,10 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 public class PageAOP {
     private Logger logger = LoggerFactory.getLogger(PageAOP.class);
 
-    //拦截Pageable注解的方法
-//    @Pointcut("@annotation(cn.yr.chile.common.mybatis.annotation.Pageable)")
-    //    public void log() {}
-
     @Before("@annotation(page)")
     public void beforeExec(JoinPoint joinPoint, Pageable page) {
         logger.info("-----执行分页搜索-----");

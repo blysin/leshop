@@ -29,6 +29,8 @@ spring:
       exclude: static/**
 
 
+
+
 mybatis:
   mapper-locations: classpath:mappers/*/*.xml
   configuration:

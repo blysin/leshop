@@ -37,7 +37,8 @@ public class ${entity} extends Model<${entity}> {
 public class ${entity} {
 #end
 
-
+@Id
+@GeneratedValue(strategy= GenerationType.IDENTITY)
 #foreach($field in ${table.fields})
 #if(${field.keyFlag})
 #set($keyPropertyName=${field.propertyName})
@@ -49,35 +50,11 @@ public class ${entity} {
 #if(${field.keyFlag})
 #if(${field.keyIdentityFlag})
 #elseif(${field.convert})
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+
 #end
 #elseif(${field.convert})
 #end
     private ${field.propertyType} ${field.propertyName};
-#end
-
-#foreach($field in ${table.fields})
-#if(${field.propertyType.equals("Boolean")})
-#set($getprefix="is")
-#else
-#set($getprefix="get")
-#end
-
-    public ${field.propertyType} ${getprefix}${field.capitalName}() {
-        return ${field.propertyName};
-    }
-
-#if(${entityBuilderModel})
-    public ${entity} set${field.capitalName}(${field.propertyType} ${field.propertyName}) {
-#else
-    public void set${field.capitalName}(${field.propertyType} ${field.propertyName}) {
-#end
-        this.${field.propertyName} = ${field.propertyName};
-#if(${entityBuilderModel})
-        return this;
-#end
-    }
 #end
 
 #if(${entityColumnConstant})

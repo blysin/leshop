@@ -2,61 +2,12 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-
+    <#include "../include/header.ftl">
     <title>乐商城</title>
-    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/css/admin.css">
-    <script src="/static/js/jquery.min.js"></script>
-    <script src="/static/js/bootstrap.min.js"></script>
-    <script src="/static/js/layer/layer.js"></script>
-
 </head>
 
 <body>
-
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/admin/sa/index">管理后台</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="/admin/sa/index">首页</a></li>
-                <@shiro.hasRole name="user">
-                    <li><a href="/admin/sa/user">会员管理</a></li>
-                </@shiro.hasRole>
-                <@shiro.hasRole name="product">
-                    <li><a href="/admin/sa/product">商品管理</a></li>
-                </@shiro.hasRole>
-                <li><a href="/admin/sa/setting">系统设置</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-            <@shiro.authenticated>
-                <li><a href="#" style="color:white"><@shiro.principal property="realName"/></a></li>
-                <li><a href="/logout">退出</a></li>
-            </@shiro.authenticated>
-
-            </ul>
-
-            <#--<form class="navbar-form navbar-right">-->
-                <#--<input type="text" class="form-control" placeholder="Search...">-->
-            <#--</form>-->
-        </div>
-    </div>
-</nav>
-
+<#include "../include/navigate.ftl">
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">

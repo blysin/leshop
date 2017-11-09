@@ -37,29 +37,4 @@ public class AdminRoleXref {
 
     //创建时间
     private Date CreateTime;
-
-    public Integer getAdminId() {
-        return AdminId;
-    }
-
-    public void setAdminId(Integer AdminId) {
-        this.AdminId = AdminId;
-    }
-
-    public Integer getRoleId() {
-        return RoleId;
-    }
-
-    public void setRoleId(Integer RoleId) {
-        this.RoleId = RoleId;
-    }
-
-    public Date getCreateTime() {
-        return CreateTime;
-    }
-
-    public void setCreateTime(Date CreateTime) {
-        this.CreateTime = CreateTime;
-    }
-
 }

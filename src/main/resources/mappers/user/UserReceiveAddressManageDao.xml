@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blysin.leshop.user.service.impl.UserReceiveAddressManageServiceImpl">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        Addr_Id AS AddrId, User_Id AS UserId, Receiver_Name AS ReceiverName, Receiver_Tel AS ReceiverTel, Receiver_Province_Id AS ReceiverProvinceId, Receiver_City_Id AS ReceiverCityId, Receiver_County_Id AS ReceiverCountyId, Receive_Town_ID AS ReceiveTownID, Receive_Village_ID AS ReceiveVillageID, Receiver_Addr AS ReceiverAddr, Create_Time AS CreateTime, Update_Time AS UpdateTime, Is_Default_Addr AS IsDefaultAddr
+    </sql>
+
+</mapper>

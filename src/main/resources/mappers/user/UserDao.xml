@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blysin.leshop.user.dao.UserDao">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        User_Id AS UserId, Login_Name AS LoginName, Nick_Name AS NickName, User_Name AS UserName, Password, Phone, Sex_Cd AS SexCd, Head_Portrait_Url AS HeadPortraitUrl, Birthday, Identity_Id AS IdentityId, Email_Address AS EmailAddress, Province_Id AS ProvinceId, City_Id AS CityId, County_Id AS CountyId, Town_ID AS TownID, Village_ID AS VillageID, Street, Status_Cd AS StatusCd, Register_Platform_Cd AS RegisterPlatformCd, Parent_User_Id AS ParentUserId, Pay_Password AS PayPassword, Register_Time AS RegisterTime, User_Level_Id AS UserLevelId, Qr_Code_Param AS QrCodeParam, Last_Login_Time AS LastLoginTime, Last_Login_IP AS LastLoginIP, Last_Update_Time AS LastUpdateTime, Openid, Create_Time AS CreateTime
+    </sql>
+
+</mapper>
